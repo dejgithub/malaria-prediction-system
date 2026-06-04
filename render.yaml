@@ -1,12 +1,10 @@
 services:
   - type: web
     name: malaria-prediction-api
-    runtime: python
-    pythonVersion: 3.11.11
+    env: docker
     region: oregon
     plan: free
-    buildCommand: pip install --upgrade pip wheel setuptools && pip install -r requirements.txt
-    startCommand: gunicorn backend.app:app --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT
+    dockerfilePath: ./Dockerfile
     envVars:
       - key: PORT
         value: 10000
