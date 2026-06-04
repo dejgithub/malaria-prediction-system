@@ -5,9 +5,6 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 const api = axios.create({
   baseURL: API_URL,
   timeout: 300000,
-  headers: {
-    "Content-Type": "application/json",
-  },
 });
 
 export const checkHealth = async () => {
@@ -19,7 +16,6 @@ export const uploadDataset = async (file: File) => {
   const formData = new FormData();
   formData.append("file", file);
   const { data } = await api.post("/upload-dataset", formData, {
-    headers: { "Content-Type": "multipart/form-data" },
     timeout: 60000,
   });
   return data;
