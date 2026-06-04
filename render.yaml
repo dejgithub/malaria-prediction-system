@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: malaria-prediction-api
+    runtime: python
+    region: oregon
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn backend.app:app --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: CORS_ORIGINS
+        value: "*"
+      - key: API_RATE_LIMIT
+        value: "100"
+      - key: PYTHON_VERSION
+        value: "3.11.0"
+    healthCheckPath: /health
+    autoDeploy: true
